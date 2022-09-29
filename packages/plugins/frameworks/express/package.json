@@ -1,0 +1,62 @@
+{
+  "name": "@assembler-lib/logger.express",
+  "version": "1.0.10",
+  "description": "This project is responsible for assembler logging",
+  "main": "dist/express.adapter.js",
+  "types": "dist/express.adapter.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=12.0.0 <18"
+  },
+  "_moduleAliases": {
+    "@logger": "@core/logger/src",
+    "@midleware": "@core/middleware/src"
+  },
+  "scripts": {
+    "test": "jest --passWithNoTests --noStackTrace --runInBand --no-cache",
+    "test:watch": "npm test -- --watch",
+    "test:cov": "npm run test -- --coverage",
+    "test:ci": "npm run test -- --ci --coverage",
+    "test:staged": "npm test -- --o --passWithNoTests",
+    "lint": "npx eslint ./src",
+    "lint:fix": "npx eslint --fix ./src",
+    "clean": "npx rimraf dist",
+    "tscBuild": "npx tsc --p tsconfig.build.json",
+    "build": "npm run clean && npm run tscBuild",
+    "check:message": "commitlint --edit \"\"",
+    "check:branch": "validate-branch-name",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "log",
+    "logger",
+    "logging",
+    "assembler-log",
+    "assembler-lib"
+  ],
+  "author": " <contato@assembler.com.br>",
+  "license": "ISC",
+  "dependencies": {
+    "@assembler-lib/logger": "*",
+    "express": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/express":"^4.17.13"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "{projectRoot}/build",
+          "{projectRoot}/public/build"
+        ]
+      }
+    }
+  }
+}

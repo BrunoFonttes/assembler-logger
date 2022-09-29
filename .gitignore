@@ -1,0 +1,68 @@
+# Ignore all
+*
+
+# Unignore all dirs
+!*/
+
+# Unignore all files with expected extensions
+!*.js
+!*.md
+!*.ts
+!*.json
+!*.sh
+!*.yaml
+
+# Ignore dependencies folder
+dist
+node_modules/
+
+# Ignore hooks scripts folder
+.husky/
+
+# Ignore test reports folders
+coverage/
+reports/
+
+# Ignore local folders
+.vscode/
+.private/
+typings/
+typings.json
+
+# Unignore all files with expected extensions
+!*.js
+!*.ts
+!*.md
+!*.example
+
+# Unignore Git files
+!.gitignore
+!.gitlab-ci.yml
+
+# Unignore package dependencies file
+!package.json
+
+# Unignore doc files
+!**/docs/**/*
+
+# Unignore .editorconfig
+!.editorconfig
+
+# Unignore .env.example
+!.env.example
+
+#Unignore nodemon.json
+!nodemon.json
+
+#Ignore other package-lock.json than root
+/**/package-lock.json
+
+#Unignore package-lock.json
+!package-lock.json
+
+#Unignore eslint
+!/.eslintignore
+!/.eslintrc.json
+
+#Unignore tsconfig.json
+!/tsconfig.json

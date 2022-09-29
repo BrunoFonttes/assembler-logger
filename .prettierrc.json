@@ -1,0 +1,24 @@
+{
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "singleQuote": true,
+  "printWidth": 100,
+  "overrides": [
+    {
+      "files": [
+        "*.js"
+      ],
+      "options": {
+        "semi": true
+      }
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "options": {
+        "semi": false
+      }
+    }
+  ]
+}

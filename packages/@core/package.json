@@ -1,0 +1,62 @@
+{
+  "name": "@assembler-lib/logger",
+  "version": "1.0.11",
+  "description": "This project is responsible for assembler logging",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=12.0.0 <18"
+  },
+  "_moduleAliases": {
+    "@logger": "dist/@core/logger/src",
+    "@midleware": "dist/@core/middleware/src",
+    "@transports": "dist/@core/transports/src"
+  },
+  "scripts": {
+    "test": "jest --passWithNoTests --noStackTrace --runInBand --no-cache",
+    "test:watch": "npm test -- --watch",
+    "test:cov": "npm run test -- --coverage",
+    "test:ci": "npm run test -- --ci --coverage",
+    "test:staged": "npm test -- --o --passWithNoTests",
+    "lint": "npx eslint ./src ./examples ./lib",
+    "lint:fix": "npx eslint --fix ./src  ./lib",
+    "clean": "npx rimraf dist",
+    "tscBuild": "npx tsc --p tsconfig.build.json",
+    "build": "npm run clean && npm run tscBuild",
+    "check:message": "commitlint --edit \"\"",
+    "check:branch": "validate-branch-name",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "log",
+    "logger",
+    "logging",
+    "assembler-log",
+    "assembler-lib"
+  ],
+  "author": " <contato@assembler.com.br>",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch-logs": "^3.79.0",
+    "base62": "^2.0.1",
+    "module-alias": "^2.2.2",
+    "uuid": "^8.3.2"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "{projectRoot}/build",
+          "{projectRoot}/public/build"
+        ]
+      }
+    }
+  }
+}

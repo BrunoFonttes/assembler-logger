@@ -1,0 +1,82 @@
+image: node:12
+
+stages:
+  - test
+  - deploy
+
+cache:
+  key: \${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+
+test:
+  image: node:17.9.0
+  stage: test
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - npm run test:ci
+  artifacts:
+    when: always
+    reports:
+      cobertura:
+        - coverage/cobertura-coverage.xml
+      junit:
+        - coverage/junit.xml
+
+core-deploy:
+  stage: deploy
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - cd packages/@core
+    - |
+      {
+        echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
+        echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
+      } | tee --append .npmrc
+    - npm set unsafe-perm true
+    - npm publish 
+  only:
+    refs:
+      - master
+    changes:
+     - 'packages/@core/**/*'
+
+winston-deploy:
+  stage: deploy
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - cd packages/plugins/loggers/winston
+    - |
+      {
+        echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
+        echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
+      } | tee --append .npmrc
+    - npm set unsafe-perm true
+    - npm publish 
+  only:
+    refs:
+      - master
+    changes:
+     - 'packages/plugins/loggers/winston/**/*'
+
+express-deploy:
+  stage: deploy
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - cd packages/plugins/frameworks/express
+    - |
+      {
+        echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
+        echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
+      } | tee --append .npmrc
+    - npm set unsafe-perm true
+    - npm publish 
+  only:
+    refs:
+      - master
+    changes:
+     - 'packages/plugins/frameworks/express/**/*'
